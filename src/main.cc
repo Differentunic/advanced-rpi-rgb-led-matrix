@@ -2,7 +2,7 @@
 #include <asio.hpp>
 #include "ArtnetReceiver.h"
 #include "E131Receiver.h"
-#include "AirPlayReceiver.h"
+// #include "AirPlayReceiver.h"
 #include "ConfigManager.h"
 #include <thread>
 #include <signal.h>
@@ -35,10 +35,10 @@ int main(int argc, char** argv) {
     } else if (mode == "e131") {
         E131Receiver e131Receiver(ioContext, "0.0.0.0", 5568); // E1.31 port
         e131Receiver.startListening();
-    } else if (mode == "airplay") {
+    } /* else if (mode == "airplay") {
         AirPlayReceiver airplayReceiver("MyAirPlayReceiver", "password", "00:11:22:33:44:55");
         airplayReceiver.start();
-    } else {
+    }*/ else {
         std::cerr << "Invalid mode specified in config: " << mode << std::endl;
         return 1;
     }
