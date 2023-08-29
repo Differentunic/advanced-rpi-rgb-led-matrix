@@ -13,6 +13,12 @@ log() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - $message" >> "$LOG_FILE"
 }
 
+# Function to check if a package is installed
+is_package_installed() {
+    local package_name="$1"
+    dpkg-query -W -f='${Status}' "$package_name" 2>/dev/null | grep -q "install ok installed"
+}
+
 # Function to install packages
 install_packages() {
     local packages=("$@")
