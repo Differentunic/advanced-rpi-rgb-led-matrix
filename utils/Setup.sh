@@ -10,6 +10,7 @@ LOG_LEVEL="INFO"
 log() {
     local level=$1
     local message=$2
+    echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - \e[96m$message\e[39m"
     echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - $message" >> "$LOG_FILE"
 }
 
@@ -52,11 +53,10 @@ clone_repo_and_run_make() {
 
     log "INFO"  "Running make command..."
     make || log "ERROR" "Failed to run make command"
-    cd "../" || log "ERROR" "Failed to navigate to the directory"
 
     # Build this application
     log "INFO" "Navigating to the directory..."
-    cd "$repo_dir" || log "ERROR" "Failed to navigate to the directory"
+    cd "../" || log "ERROR" "Failed to navigate to the directory"
 
     log "INFO"  "Running make command..."
     make || log "ERROR" "Failed to run make command"
