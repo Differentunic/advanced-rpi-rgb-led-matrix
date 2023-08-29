@@ -10,7 +10,7 @@ LOG_LEVEL="INFO"
 log() {
     local level=$1
     local message=$2
-    echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - \e[96m$message\e[39m"
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S") [$level] - \e[96m$message\e[39m"
     echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - $message" >> "$LOG_FILE"
 }
 
