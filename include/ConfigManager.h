@@ -12,11 +12,11 @@ public:
     void loadOrCreateConfig();
 
     std::string getMode();
-    RGBMatrix::Options getMatrixOptions();
+    rgb_matrix::RGBMatrix::Options getMatrixOptions();
 
 private:
     std::string mode;
-    RGBMatrix::Options matrixOptions;
+    rgb_matrix::RGBMatrix::Options matrixOptions;
 };
 
 #endif // CONFIG_MANAGER_H

@@ -57,8 +57,8 @@ int main(int argc, char** argv) {
         
         // For example, you can clear the canvas and draw something like this:
         canvas->Clear();
-        DrawText(canvas, font, x, y, color, "Received Data");
-        canvas = matrix->SwapOnVSync(canvas);
+        // DrawText(canvas, font, x, y, color, "Received Data");
+        // canvas = matrix->SwapOnVSync(canvas);
         
         ioContext.poll();
     }

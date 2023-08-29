@@ -30,7 +30,7 @@ void ConfigManager::loadOrCreateConfig() {
                 if (key == "mode") {
                     mode = value;
                 } else if (key == "hardware_mapping") {
-                    matrixOptions.hardware_mapping = value;
+                    rgb_matrix::RGBMatrix::Options matrixOptions;
                 } else if (key == "rows") {
                     matrixOptions.rows = std::stoi(value);
                 } else if (key == "cols") {
@@ -50,6 +50,6 @@ std::string ConfigManager::getMode() {
     return mode;
 }
 
-RGBMatrix::Options ConfigManager::getMatrixOptions() {
+rgb_matrix::RGBMatrix::Options ConfigManager::getMatrixOptions() {
     return matrixOptions;
 }
