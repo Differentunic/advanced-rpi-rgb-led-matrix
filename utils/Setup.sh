@@ -45,6 +45,15 @@ clone_repo_and_run_make() {
     log "INFO"  "Cloning the GitHub repo..."
     git clone --recursive "$repo_url" "$repo_dir" || log "ERROR" "Failed to clone the GitHub repo"
 
+    # Build libs
+    log "INFO" "Navigating to the directory..."
+    cd "$repo_dir" || log "ERROR" "Failed to navigate to the directory"
+    cd "rpi-rgb-led-matrix" || log "ERROR" "Failed to navigate to the directory"
+
+    log "INFO"  "Running make command..."
+    make || log "ERROR" "Failed to run make command"
+
+    # Build this application
     log "INFO" "Navigating to the directory..."
     cd "$repo_dir" || log "ERROR" "Failed to navigate to the directory"
 
@@ -56,7 +65,7 @@ clone_repo_and_run_make() {
 main() {
 
     log "INFO" "Starting package installation..."
-    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-tools" "make")
+    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-essentials")
     install_packages "${packages[@]}"
     log "INFO" "Package installation completed."
 
