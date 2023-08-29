@@ -56,7 +56,7 @@ clone_repo_and_run_make() {
 main() {
 
     log "INFO" "Starting package installation..."
-    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-tools")
+    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-tools" "make")
     install_packages "${packages[@]}"
     log "INFO" "Package installation completed."
 
