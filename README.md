@@ -142,5 +142,5 @@ Distributed under the GNU GPLv3 License. See `LICENSE` for more information.
 [issues-shield]: https://img.shields.io/github/issues/Differentunic/advanced-rpi-rgb-led-matrix.svg?style=for-the-badge
 [issues-url]: https://github.com/Differentunic/advanced-rpi-rgb-led-matrix/issues
 [license-shield]: https://img.shields.io/github/license/Differentunic/advanced-rpi-rgb-led-matrix.svg?style=for-the-badge
-[license-url]: https://github.com/Differentunic/advanced-rpi-rgb-led-matrix/blob/main/LICENCE
+[license-url]: https://github.com/Differentunic/advanced-rpi-rgb-led-matrix/blob/main/LICENSE
 [product-screenshot]: placeholder
