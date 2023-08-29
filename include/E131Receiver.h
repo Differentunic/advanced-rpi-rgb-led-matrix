@@ -5,7 +5,13 @@
 #include <asio.hpp>
 #include <vector>
 
-constexpr std::size_t ArtnetMaxPacketSize = 2048; // Define an appropriate value
+// Define E131Header struct if not already defined
+struct E131Header {
+    // Define your E1.31 packet header structure here
+};
+
+constexpr std::size_t E131MaxPacketSize = 2048; // Define an appropriate value
+
 class E131Receiver {
 public:
     E131Receiver(asio::io_context& ioContext, const std::string& bindAddress, unsigned short port)

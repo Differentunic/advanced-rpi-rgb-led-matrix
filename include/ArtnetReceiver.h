@@ -6,6 +6,18 @@
 
 constexpr std::size_t ArtnetMaxPacketSize = 2048; // Define an appropriate value
 
+// Define the ArtnetOpCodes enum
+enum class ArtnetOpCodes {
+    OpDmx, // Add more op codes as needed
+    // ...
+};
+
+// Define the ArtnetPacketHeader struct
+struct ArtnetPacketHeader {
+    uint16_t opCode; // Add other fields as needed
+    // ...
+};
+
 class ArtnetReceiver {
 public:
     ArtnetReceiver(asio::io_context& ioContext, const std::string& bindAddress, unsigned short port)
@@ -42,7 +54,7 @@ void processArtnetData(const char* data, std::size_t length) {
         const ArtnetPacketHeader* packetHeader = reinterpret_cast<const ArtnetPacketHeader*>(data);
 
         // Check if the packet is an Artnet ArtDmx packet
-        if (packetHeader->opCode == ArtnetOpCodes::OpDmx) {
+        if (static_cast<ArtnetOpCodes>(packetHeader->opCode) == ArtnetOpCodes::OpDmx) {
             // Calculate the size of the DMX data in the packet
             std::size_t dmxDataSize = length - sizeof(ArtnetPacketHeader);
 
@@ -59,7 +71,6 @@ void processArtnetData(const char* data, std::size_t length) {
         }
     }
 }
-
 
     asio::ip::udp::socket socket_;
     asio::ip::udp::endpoint senderEndpoint_;

@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
     std::string mode = configManager.getMode();
     RGBMatrix::Options matrixOptions = configManager.getMatrixOptions();
 
-
     if (mode == "artnet") {
         ArtnetReceiver artnetReceiver(ioContext, "0.0.0.0", 6454); // Art-Net port
         artnetReceiver.startListening();
@@ -39,13 +38,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    RGBMatrix* matrix = CreateMatrixFromOptions(matrixOptions);
+    RGBMatrix* matrix = CreateMatrixFromOptions(matrixOptions, RuntimeOptions()); // Provide appropriate RuntimeOptions
     if (matrix == nullptr) {
         std::cerr << "Error creating RGBMatrix instance." << std::endl;
         return 1;
     }
 
-    Canvas* canvas = matrix->CreateFrameCanvas();
+    FrameCanvas* canvas = matrix->CreateFrameCanvas();
 
     while (!shouldExit) {
         // Update LED matrix using received data

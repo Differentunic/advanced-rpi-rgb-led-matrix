@@ -3,7 +3,7 @@
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -I./include -I./rpi-rgb-led-matrix/include -I/usr/include
-LDFLAGS = -L/rpi-rgb-led-matrix/lib -lrgbmatrix -lpthread
+LDFLAGS = -L./rpi-rgb-led-matrix/lib -lrgbmatrix -lpthread
 
 # Directories
 SRC_DIR = src
