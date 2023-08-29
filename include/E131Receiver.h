@@ -5,6 +5,7 @@
 #include <asio.hpp>
 #include <vector>
 
+constexpr std::size_t ArtnetMaxPacketSize = 2048; // Define an appropriate value
 class E131Receiver {
 public:
     E131Receiver(asio::io_context& ioContext, const std::string& bindAddress, unsigned short port)

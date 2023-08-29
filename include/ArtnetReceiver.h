@@ -4,6 +4,8 @@
 #include <iostream>
 #include <asio.hpp>
 
+constexpr std::size_t ArtnetMaxPacketSize = 2048; // Define an appropriate value
+
 class ArtnetReceiver {
 public:
     ArtnetReceiver(asio::io_context& ioContext, const std::string& bindAddress, unsigned short port)
@@ -32,10 +34,32 @@ private:
             });
     }
 
-    void processArtnetData(const char* data, std::size_t length) {
-        // Implement your Artnet data processing logic here
-        // Parse and interpret the received data according to the Artnet protocol
+// Function to process the received Artnet data
+void processArtnetData(const char* data, std::size_t length) {
+    // Check if the data length is at least the size of an Artnet packet header
+    if (length >= sizeof(ArtnetPacketHeader)) {
+        // Cast the received data to a pointer of the ArtnetPacketHeader type
+        const ArtnetPacketHeader* packetHeader = reinterpret_cast<const ArtnetPacketHeader*>(data);
+
+        // Check if the packet is an Artnet ArtDmx packet
+        if (packetHeader->opCode == ArtnetOpCodes::OpDmx) {
+            // Calculate the size of the DMX data in the packet
+            std::size_t dmxDataSize = length - sizeof(ArtnetPacketHeader);
+
+            // Cast the DMX data pointer to the appropriate type
+            const uint8_t* dmxData = reinterpret_cast<const uint8_t*>(data + sizeof(ArtnetPacketHeader));
+
+            // Now you can use 'dmxData' and 'dmxDataSize' to work with the DMX data
+            // For example, you might want to process and display the DMX values
+
+            // Print the DMX values as an example
+            for (std::size_t i = 0; i < dmxDataSize; ++i) {
+                std::cout << "Channel " << i << ": " << static_cast<int>(dmxData[i]) << std::endl;
+            }
+        }
     }
+}
+
 
     asio::ip::udp::socket socket_;
     asio::ip::udp::endpoint senderEndpoint_;

@@ -14,10 +14,25 @@ void ConfigManager::loadOrCreateConfig() {
     std::ifstream configFile("config.txt");
     if (!configFile.good()) {
         // If config file doesn't exist, create default config
-        // ...
+        mode = "default"; // Set your default mode
+        matrixOptions.rows = 32; // Set default rows
+        matrixOptions.cols = 32; // Set default cols
+        matrixOptions.chain_length = 1; // Set default chain length
+        matrixOptions.parallel = 1; // Set default parallel
 
         // Save the default config to config.txt
-        // ...
+        std::ofstream outFile("config.txt");
+        if (outFile.is_open()) {
+            outFile << "mode=default" << std::endl;
+            outFile << "hardware_mapping=default" << std::endl;
+            outFile << "rows=32" << std::endl;
+            outFile << "cols=32" << std::endl;
+            outFile << "chain_length=1" << std::endl;
+            outFile << "parallel=1" << std::endl;
+            outFile.close();
+        } else {
+            std::cerr << "Error saving default config." << std::endl;
+        }
     } else {
         // Load existing config
         std::string line;
@@ -29,8 +44,6 @@ void ConfigManager::loadOrCreateConfig() {
 
                 if (key == "mode") {
                     mode = value;
-                } else if (key == "hardware_mapping") {
-                    rgb_matrix::RGBMatrix::Options matrixOptions;
                 } else if (key == "rows") {
                     matrixOptions.rows = std::stoi(value);
                 } else if (key == "cols") {
