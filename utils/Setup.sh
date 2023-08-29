@@ -10,7 +10,14 @@ LOG_LEVEL="INFO"
 log() {
     local level=$1
     local message=$2
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S") [$level] - \e[96m$message\e[39m"
     echo "$(date +"%Y-%m-%d %H:%M:%S") [$level] - $message" >> "$LOG_FILE"
+}
+
+# Function to check if a package is installed
+is_package_installed() {
+    local package_name="$1"
+    dpkg-query -W -f='${Status}' "$package_name" 2>/dev/null | grep -q "install ok installed"
 }
 
 # Function to install packages
@@ -39,8 +46,17 @@ clone_repo_and_run_make() {
     log "INFO"  "Cloning the GitHub repo..."
     git clone --recursive "$repo_url" "$repo_dir" || log "ERROR" "Failed to clone the GitHub repo"
 
+    # Build libs
     log "INFO" "Navigating to the directory..."
     cd "$repo_dir" || log "ERROR" "Failed to navigate to the directory"
+    cd "rpi-rgb-led-matrix" || log "ERROR" "Failed to navigate to the directory"
+
+    log "INFO"  "Running make command..."
+    make || log "ERROR" "Failed to run make command"
+
+    # Build this application
+    log "INFO" "Navigating to the directory..."
+    cd "../" || log "ERROR" "Failed to navigate to the directory"
 
     log "INFO"  "Running make command..."
     make || log "ERROR" "Failed to run make command"
@@ -50,7 +66,7 @@ clone_repo_and_run_make() {
 main() {
 
     log "INFO" "Starting package installation..."
-    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-tools")
+    packages=("libgraphicsmagick++-dev" "libwebp-dev" "git" "build-essential" "make" "libboost-all-dev")
     install_packages "${packages[@]}"
     log "INFO" "Package installation completed."
 
